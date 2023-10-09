@@ -1,53 +1,75 @@
 import java.util.Scanner;
 
-public class PenugasanJ5 {
+public class Tugasdaspro {
     public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
-        System.out.println("-------------------------------------");
-        System.out.println("| SELAMAT DATANG DI PERSEWAAN MOBIL |");
-        System.out.println("-------------------------------------");
+        System.out.println("-------------------------------------------");
+        System.out.println("| SELAMAT DATANG DI PERSEWAAN MOBIL YAPUZA |");
+        System.out.println("-------------------------------------------");
 
-        // Daftar mobil dan harga
         System.out.println("Daftar sewa Mobil per hari:");
-        System.out.println("1. Avanza - Rp. 325.000");
-        System.out.println("2. Brio  - Rp.300.000 ");
-        System.out.println("3. Elf - Rp. 1.400.000");
+        System.out.println("-------------------------------------------------");
+        System.out.println("| No. |    Mobil               | Harga            |");
+        System.out.println("-------------------------------------------------");
+        System.out.println("| 1   | Brio - Lepas Kunci     | Rp. 300.000      |");
+        System.out.println("|     | - Dengan Driver        | Rp. 600.000      |");
+        System.out.println("| 2   | Isuzu Elf Long         | Rp. 1.400.000    |");
+        System.out.println("| 3   | Mitsubishi X-Pander    | Rp. 450.000      |");
+        System.out.println("|     | - Dengan Driver        | Rp. 750.000      |");
+        System.out.println("-------------------------------------------------");
 
-        // Meminta input dari pengguna
+        // Memasukkan jumlah hari penyewaan
+        System.out.print("Masukkan jumlah hari penyewaan: ");
+        int jumlahHari = scanner.nextInt();
+
+        // Memasukkan tipe mobil yang akan disewa
+
         System.out.print("Masukkan nomor yang dipilih (1 - 3): ");
-        int nomorMobil = input.nextInt();
+        int pilihanMobil = scanner.nextInt();
 
-        // Variabel untuk menyimpan nama menu dan harga
-        String namaMobil = "";
-        int hargaSewa = 0;
+        // Memilih apakah menggunakan driver atau tidak
+        System.out.print("Apakah ingin menggunakan driver? (y/n)");
+        String menggunakanDriver = scanner.next();
 
-        // Menggunakan switch-case untuk menentukan daftar mobil berdasarkan nomor yang dimasukkan
-        switch (nomorMobil) {
-            case 1:
-                namaMobil = "Avanza";
-                hargaSewa = 325000;
-                break;
-            case 2:
-                namaMobil = "Brio";
-                hargaSewa = 350000;
-                break;
-            case 3:
-                namaMobil = "Elf";
-                hargaSewa = 1400000;
-                break;
-            default:
-                System.out.println("Nomor menu tidak valid.");
-                return;
+        // Menghitung harga sewa
+        double hargaSewa = 0;
+        if (pilihanMobil == 1) { // Mobil Brio
+            System.out.println("Anda memilih mobil Brio");
+            if (menggunakanDriver.equalsIgnoreCase("y")) {
+                hargaSewa = jumlahHari * 600000;
+                System.out.println("Harga sewa mobil Brio selama " + jumlahHari + " hari dengan driver adalah: " + hargaSewa);
+            } else if (menggunakanDriver.equalsIgnoreCase("n")) {
+                hargaSewa = jumlahHari * 300000;
+                System.out.println("Harga sewa mobil Brio selama " + jumlahHari + " hari tanpa driver adalah: " + hargaSewa);
+            } else {
+                System.out.println("Input tidak valid");
+            }    
+        
+        } else if (pilihanMobil == 2) { // Elf
+            System.out.println("Anda memilih mobil Isuzu Elf Long");
+            if (menggunakanDriver.equalsIgnoreCase("y")) {
+                hargaSewa = jumlahHari * 1400000;
+                System.out.println("Harga sewa mobil Suzuki selama " + jumlahHari + " hari dengan driver adalah: " + hargaSewa);
+            } else if (menggunakanDriver.equalsIgnoreCase("n")) {
+                System.out.println("Mobil tidak tersedia tanpa driver");
+            } else {
+                System.out.println("Input tidak valid");
+            }
+
+          } else if (pilihanMobil == 3) { // Mitsubishi X-Pander
+            System.out.println("Anda memilih mobil Mitsubishi X-Pander");
+            if (menggunakanDriver.equalsIgnoreCase("y")) {
+                hargaSewa = jumlahHari * 750000;
+                System.out.println("Harga sewa mobil Suzuki selama " + jumlahHari + " hari dengan driver adalah: " + hargaSewa);
+            } else if (menggunakanDriver.equalsIgnoreCase("n")) {
+                 hargaSewa = jumlahHari * 450000;
+                System.out.println("Harga sewa mobil Brio selama " + jumlahHari + " hari tanpa driver adalah: " + hargaSewa);   
+            } else {
+                System.out.println("Input tidak valid");
+            }
+        } else  {
+            System.out.println("Input tidak valid");
         }
-
-        System.out.print("Lama Sewa/ hari :");
-        int lamaSewa = input.nextInt();
-        int total = hargaSewa * lamaSewa;
-
-        // Menampilkan pesanan pelanggan
-        System.out.println("Anda telah memilih: " + namaMobil);
-        System.out.println("Harga: Rp " + total);
-
     }
 }
