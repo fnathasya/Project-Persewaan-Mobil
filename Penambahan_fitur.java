@@ -88,16 +88,20 @@ public class Penambahan_fitur {
                     break;
 
                 case 2:
-                    // Sort mobilData berdasarkan harga
+                    // pengurutan harga mobil secara ascending
                     for (int i = 1; i < mobilData.length; i++) {
-                        double key = Double.parseDouble(mobilData[i][2]);
-                        String[] keyData = mobilData[i];
-                        int j = i - 1;
-                        while (j >= 0 && Double.parseDouble(mobilData[j][2]) > key) {
-                            mobilData[j + 1] = mobilData[j];
-                            j--;
+                        // menyimpan harga untuk perbandingan
+                        String hargamobil = mobilData[i][2]; // harga mobil yang akan di proses
+                        String[] hargaSewa = mobilData[i]; // seluruh data mobil
+
+                        // menyimpan posisi yang benar setelah data mobil dibandingkan
+                        int simpan = i -1; // wadah untuk pengurutan
+                        // pengururtan mobil berdasarkan harga
+                        while (simpan >= 0 && mobilData[simpan][2].compareTo(hargamobil) > 0) {
+                            mobilData[simpan + 1] = mobilData[simpan];
+                            simpan--;
                         }
-                        mobilData[j + 1] = keyData;
+                        mobilData[simpan + 1] = hargaSewa;
                     }
 
                     System.out.println("Daftar Harga Sewa Mobil dari Termurah:");
