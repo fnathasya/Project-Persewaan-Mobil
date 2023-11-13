@@ -1,0 +1,179 @@
+import java.util.Scanner;
+
+public class Penambahan_fitur {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        boolean lanjutSewa = true;
+        int totalBiayaSewa = 0;
+        int tanggalMulaiSewa = 0;
+
+        String[][] mobilData = {
+                {"Honda Brio (Lepas Kunci)", "AB 1234 CD", "300000", "Ready Stok"},
+                {"Honda Brio (Dengan Driver)", "EF 5678 GH", "600000", "Ready Stok"},
+                {"Isuzu Elf Long (Lepas Kunci)", "IJ 9101 KL", "1000000", "Ready Stok"},
+                {"Isuzu Elf Long (Dengan Driver)", "MN 1112 OP", "1400000", "Ready Stok"},
+                {"Mitsubishi X-Pander (Lepas Kunci)", "QR 1314 ST", "450000", "Ready Stok"},
+                {"Mitsubishi X-Pander (Dengan Driver)", "UV 1516 WX", "750000", "Ready Stok"}
+        };
+
+        System.out.println("-------------------------------------------");
+        System.out.println("| SELAMAT DATANG DI PERSEWAAN MOBIL YAPUZA |");
+        System.out.println("-------------------------------------------");
+
+        System.out.println(" MASUKKAN INFORMASI PENYEWA : ");
+        System.out.print(" Nama Penyewa : ");
+        String namaPenyewa = scanner.nextLine();
+
+        System.out.print(" Nomor Induk Kependudukan (NIK) : ");
+        String NIK = scanner.nextLine();
+
+        int menu;
+        do {
+            System.out.println("------------------------------------");
+            System.out.println("|            MENU UTAMA            |");
+            System.out.println("------------------------------------");
+            System.out.println("| 1. Daftar Mobil                  |");
+            System.out.println("| 2. Daftar Pengurutan Harga mobil |");
+            System.out.println("| 3. Pemesanan                     |");
+            System.out.println("| 4. Pengembalian                  |");
+            System.out.println("| 5. Keluar                        |");
+            System.out.println("------------------------------------");
+
+            System.out.print(" Pilih Menu : ");
+            menu = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (menu) {
+                case 1:
+                    // Menampilkan daftar mobil
+                    System.out.println("Daftar sewa Mobil per hari:");
+                    System.out.println("-----------------------------------------------------------------------------------------------");
+                    System.out.println("| No.   |    Mobil                            | Plat Nomor    | Harga             | Status       |");
+                    System.out.println("-----------------------------------------------------------------------------------------------");
+                    for (int i = 0; i < mobilData.length; i++) {
+                        System.out.printf("| %-6d| %-35s | %-12s | Rp. %-14s | %-12s |\n",
+                                i + 1, mobilData[i][0], mobilData[i][1], mobilData[i][2], mobilData[i][3]);
+                    }
+                    System.out.println("-----------------------------------------------------------------------------------------------");
+                    break;
+
+                case 2:
+                    // Sort mobilData berdasarkan harga
+                    for (int i = 1; i < mobilData.length; i++) {
+                        double key = Double.parseDouble(mobilData[i][2]);
+                        String[] keyData = mobilData[i];
+                        int j = i - 1;
+                        while (j >= 0 && Double.parseDouble(mobilData[j][2]) > key) {
+                            mobilData[j + 1] = mobilData[j];
+                            j--;
+                        }
+                        mobilData[j + 1] = keyData;
+                    }
+
+                    System.out.println("Daftar Harga Sewa Mobil dari Termurah:");
+                    System.out.println("--------------------------------------------------------");
+                    System.out.println("|       Mobil                         | Plat Nomor | Harga  | Status       |");
+                    System.out.println("--------------------------------------------------------");
+                    for (int i = 0; i < mobilData.length; i++) {
+                        System.out.printf("| %-35s| %-10s | Rp. %-8s | %-12s |\n",
+                                mobilData[i][0], mobilData[i][1], mobilData[i][2], mobilData[i][3]);
+                    }
+                    System.out.println("--------------------------------------------------------");
+                    break;
+
+                case 3:
+                    while (lanjutSewa) {
+                        System.out.print("Masukkan jumlah hari penyewaan: ");
+                        int jumlahHari = scanner.nextInt();
+
+                        System.out.print("Masukkan tanggal mulai penyewaan (1-31): ");
+                        tanggalMulaiSewa = scanner.nextInt();
+
+                        System.out.println("Daftar sewa Mobil per hari:");
+                        System.out.println("-----------------------------------------------------------------------------------------------");
+                        System.out.println("| No.   |    Mobil                            | Plat Nomor    | Harga             | Status       |");
+                        System.out.println("-----------------------------------------------------------------------------------------------");
+                        for (int i = 0; i < mobilData.length; i++) {
+                            System.out.printf("| %-6d| %-35s | %-12s | Rp. %-14s | %-12s |\n",
+                                    i + 1, mobilData[i][0], mobilData[i][1], mobilData[i][2], mobilData[i][3]);
+                        }
+                        System.out.println("-----------------------------------------------------------------------------------------------");
+
+                        int pilihanMobil;
+                        boolean mobilValid = false;
+
+                        do {
+                            System.out.print("Masukkan nomor mobil yang dipilih (1 - " + mobilData.length + "): ");
+                            pilihanMobil = scanner.nextInt();
+
+                            if (pilihanMobil < 1 || pilihanMobil > mobilData.length) {
+                                System.out.println("Nomor mobil tidak valid.");
+                                continue;
+                            }
+
+                            if (mobilData[pilihanMobil - 1][3].equalsIgnoreCase("Sedang Disewa")) {
+                                System.out.println("Maaf, mobil tersebut sedang disewa. Silakan pilih mobil lain.");
+                            } else {
+                                mobilValid = true;
+                            }
+                        } while (!mobilValid);
+
+                        double hargaSewa = 0;
+                        String mobilSewa = "";
+                        mobilSewa = mobilData[pilihanMobil - 1][0];
+                        hargaSewa = jumlahHari * Double.parseDouble(mobilData[pilihanMobil - 1][2]);
+
+                        totalBiayaSewa += hargaSewa;
+
+                        System.out.println("-----------------------------------");
+                        System.out.println("            INVOICE               ");
+                        System.out.println("-----------------------------------");
+                        System.out.println("Nama Penyewa: " + namaPenyewa);
+                        System.out.println("Nomor Induk Kependudukan (NIK): " + NIK);
+                        System.out.println("Mobil Sewa: " + mobilSewa);
+                        System.out.println("Plat Nomor: " + mobilData[pilihanMobil - 1][1]);
+                        System.out.println("Tanggal Mulai Penyewaan: " + tanggalMulaiSewa);
+                        System.out.println("Jumlah Hari: " + jumlahHari);
+                        System.out.println("Harga Sewa: Rp. " + hargaSewa);
+                        System.out.println("-----------------------------------");
+
+                        mobilData[pilihanMobil - 1][3] = "Sedang Disewa";
+
+                        System.out.print("Apakah ingin memesan mobil lagi? (y/n): ");
+                        String pesanLagi = scanner.next();
+                        lanjutSewa = pesanLagi.equalsIgnoreCase("y");
+                    }
+                    System.out.println("Total Seluruh Pesanan Mobil: Rp. " + totalBiayaSewa);
+                    break;
+
+                case 4:
+                    System.out.print("Masukkan nomor mobil yang dikembalikan: ");
+                    int nomorKembali = scanner.nextInt();
+
+                    if (nomorKembali >= 1 && nomorKembali <= mobilData.length) {
+                        if (mobilData[nomorKembali - 1][3].equalsIgnoreCase("Sedang Disewa")) {
+                            System.out.print("Masukkan tanggal pengembalian: ");
+                            int tanggalKembali = scanner.nextInt();
+
+                            int batasHariSewa = 1;
+                            int denda = 0;
+                            if (tanggalKembali > tanggalMulaiSewa + batasHariSewa) {
+                                denda = (tanggalKembali - (tanggalMulaiSewa + batasHariSewa)) * 1000000;
+                            }
+
+                            mobilData[nomorKembali - 1][3] = "Ready Stok";
+
+                            System.out.println("Mobil berhasil dikembalikan.");
+                            System.out.println("Denda: Rp. " + denda);
+                        } else {
+                            System.out.println("Mobil dengan nomor tersebut belum disewa.");
+                        }
+                    } else {
+                        System.out.println("Nomor mobil tidak valid.");
+                    }
+                    break;
+            }
+        } while (menu != 5);
+        System.out.println("Terima kasih telah menggunakan layanan kami!");
+    }
+}
