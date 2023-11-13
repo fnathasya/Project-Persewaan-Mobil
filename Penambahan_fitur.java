@@ -38,12 +38,12 @@ public class Penambahan_fitur {
 
 
         String[][] mobilData = {
-                {"Honda Brio (Lepas Kunci)", "AB 1234 CD", "300000", "Ready Stok"},
-                {"Honda Brio (Dengan Driver)", "EF 5678 GH", "600000", "Ready Stok"},
-                {"Isuzu Elf Long (Lepas Kunci)", "IJ 9101 KL", "1000000", "Ready Stok"},
-                {"Isuzu Elf Long (Dengan Driver)", "MN 1112 OP", "1400000", "Ready Stok"},
-                {"Mitsubishi X-Pander (Lepas Kunci)", "QR 1314 ST", "450000", "Ready Stok"},
-                {"Mitsubishi X-Pander (Dengan Driver)", "UV 1516 WX", "750000", "Ready Stok"}
+                {"Honda Brio ", "AB 1234 CD", "300000", "Ready Stok"},
+                {"Honda Jazz ", "EF 5678 GH", "600000", "Ready Stok"},
+                {"Toyota Fortuner", "IJ 9101 KL", "800000", "Ready Stok"},
+                {"Isuzu Elf Long ", "MN 1112 OP", "1400000", "Ready Stok"},
+                {"Mitsubishi Pajero", "QR 1314 ST", "750000", "Ready Stok"},
+                {"Mitsubishi X-Pander ", "UV 1516 WX", "750000", "Ready Stok"}
         };
 
         System.out.println("-------------------------------------------");
