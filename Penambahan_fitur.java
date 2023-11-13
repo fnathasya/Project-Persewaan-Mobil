@@ -7,6 +7,36 @@ public class Penambahan_fitur {
         int totalBiayaSewa = 0;
         int tanggalMulaiSewa = 0;
 
+        //  Data Username dan Password Untuk Login
+        String[] username = { "Faiza", "Paudra", "Yusuf" };
+        String[] password = { "f123", "p123", "y123" };
+
+        boolean loginSuccess = false;
+        do {
+                // Input user dan password
+                System.out.print("Masukkan username: ");
+                String inputUsername = scanner.next();
+                System.out.print("Masukkan password: ");
+                String inputPassword = scanner.next();
+
+                // loop untuk memeriksa apakah username dan passowrd yang diinputkan benar
+                for (int i = 0; i < username.length; i++) {
+                    if (username[i].equals(inputUsername) && password[i].equals(inputPassword)) {
+                        loginSuccess = true;
+                        break; // Keluar dari loop jika login berhasil
+                    }
+                }
+                
+                // jika username dan password benar maka login berhasil
+                if (loginSuccess) {
+                    System.out.println("Login Success! Selamat Datang " + inputUsername +"!");
+                    // jika username dan password salah maka login gagal dan terdapat perintah untuk coba lagi
+                } else {
+                    System.out.println("Login Gagal! Silahkan Coba Lagi !");
+                }
+        } while (!loginSuccess);
+
+
         String[][] mobilData = {
                 {"Honda Brio (Lepas Kunci)", "AB 1234 CD", "300000", "Ready Stok"},
                 {"Honda Brio (Dengan Driver)", "EF 5678 GH", "600000", "Ready Stok"},
@@ -22,10 +52,10 @@ public class Penambahan_fitur {
 
         System.out.println(" MASUKKAN INFORMASI PENYEWA : ");
         System.out.print(" Nama Penyewa : ");
-        String namaPenyewa = scanner.nextLine();
+        String namaPenyewa = scanner.next();
 
         System.out.print(" Nomor Induk Kependudukan (NIK) : ");
-        String NIK = scanner.nextLine();
+        String NIK = scanner.next();
 
         int menu;
         do {
