@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Persewaan_Mobil_YAPUZA {
+public class Penambahan_Fitur {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         boolean lanjutSewa = true;
@@ -21,7 +21,7 @@ public class Persewaan_Mobil_YAPUZA {
 
                 // loop untuk memeriksa apakah username dan passowrd yang diinputkan benar
                 for (int i = 0; i < username.length; i++) {
-                    if (username[i].equals(inputUsername) && password[i].equals(inputPassword)) {
+                    if (username[i].equalsIgnoreCase(inputUsername) && password[i].equals(inputPassword)) {
                         loginSuccess = true;
                         break; // Keluar dari loop jika login berhasil
                     }
