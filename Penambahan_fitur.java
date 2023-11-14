@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Penambahan_fitur {
+public class Persewaan_Mobil_YAPUZA {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         boolean lanjutSewa = true;
@@ -63,10 +63,9 @@ public class Penambahan_fitur {
             System.out.println("|            MENU UTAMA            |");
             System.out.println("------------------------------------");
             System.out.println("| 1. Daftar Mobil                  |");
-            System.out.println("| 2. Daftar Pengurutan Harga mobil |");
-            System.out.println("| 3. Pemesanan                     |");
-            System.out.println("| 4. Pengembalian                  |");
-            System.out.println("| 5. Keluar                        |");
+            System.out.println("| 2. Pemesanan                     |");
+            System.out.println("| 3. Pengembalian                  |");
+            System.out.println("| 4. Keluar                        |");
             System.out.println("------------------------------------");
 
             System.out.print(" Pilih Menu : ");
@@ -88,34 +87,6 @@ public class Penambahan_fitur {
                     break;
 
                 case 2:
-                    // pengurutan harga mobil secara ascending
-                    for (int i = 1; i < mobilData.length; i++) {
-                        // menyimpan harga untuk perbandingan
-                        String hargamobil = mobilData[i][2]; // harga mobil yang akan di proses
-                        String[] hargaSewa = mobilData[i]; // seluruh data mobil
-
-                        // menyimpan posisi yang benar setelah data mobil dibandingkan
-                        int simpan = i -1; // wadah untuk pengurutan
-                        // pengururtan mobil berdasarkan harga
-                        while (simpan >= 0 && mobilData[simpan][2].compareTo(hargamobil) > 0) {
-                            mobilData[simpan + 1] = mobilData[simpan];
-                            simpan--;
-                        }
-                        mobilData[simpan + 1] = hargaSewa;
-                    }
-
-                    System.out.println("Daftar Harga Sewa Mobil dari Termurah:");
-                    System.out.println("--------------------------------------------------------");
-                    System.out.println("|       Mobil                         | Plat Nomor | Harga  | Status       |");
-                    System.out.println("--------------------------------------------------------");
-                    for (int i = 0; i < mobilData.length; i++) {
-                        System.out.printf("| %-35s| %-10s | Rp. %-8s | %-12s |\n",
-                                mobilData[i][0], mobilData[i][1], mobilData[i][2], mobilData[i][3]);
-                    }
-                    System.out.println("--------------------------------------------------------");
-                    break;
-
-                case 3:
                     while (lanjutSewa) {
                         System.out.print("Masukkan jumlah hari penyewaan: ");
                         int jumlahHari = scanner.nextInt();
@@ -180,7 +151,7 @@ public class Penambahan_fitur {
                     System.out.println("Total Seluruh Pesanan Mobil: Rp. " + totalBiayaSewa);
                     break;
 
-                case 4:
+                case 3:
                     System.out.print("Masukkan nomor mobil yang dikembalikan: ");
                     int nomorKembali = scanner.nextInt();
 
@@ -207,7 +178,7 @@ public class Penambahan_fitur {
                     }
                     break;
             }
-        } while (menu != 5);
+        } while (menu != 4);
         System.out.println("Terima kasih telah menggunakan layanan kami!");
     }
 }
