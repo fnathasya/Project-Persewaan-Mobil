@@ -6,12 +6,15 @@ public class TugasJS3 {
         boolean lanjutSewa = true;
         int totalBiayaSewa = 0;
         int tanggalMulaiSewa = 0;
-
-        //  Data Username dan Password Untuk Login
-        String[] username = { "Faiza", "Paudra", "Yusuf" };
-        String[] password = { "f123", "p123", "y123" };
-
+        
+        //  Data pengguna
+       String [][]  DataLogin={
+                    {"Faiza","f123","Admin"},
+                    {"Yusuf","y123","Manager"},
+                    {"Paudra","p123","Kasir"}
+       };
         boolean loginSuccess = false;
+        String role= "";
         do {
                 // Input user dan password
                 System.out.print("Masukkan username: ");
@@ -20,9 +23,10 @@ public class TugasJS3 {
                 String inputPassword = scanner.next();
 
                 // loop untuk memeriksa apakah username dan passowrd yang diinputkan benar
-                for (int i = 0; i < username.length; i++) {
-                    if (username[i].equalsIgnoreCase(inputUsername) && password[i].equals(inputPassword)) {
+                for (int i = 0; i < DataLogin.length; i++) {
+                    if (DataLogin[i][0].equalsIgnoreCase(inputUsername) && DataLogin[i][1].equals(inputPassword)) {
                         loginSuccess = true;
+                        role=DataLogin[i][2];
                         break; // Keluar dari loop jika login berhasil
                     }
                 }
@@ -30,6 +34,7 @@ public class TugasJS3 {
                 // jika username dan password benar maka login berhasil
                 if (loginSuccess) {
                     System.out.println("Login Success! Selamat Datang " + inputUsername +"!");
+                    System.out.println("Role: "+role);
                     // jika username dan password salah maka login gagal dan terdapat perintah untuk coba lagi
                 } else {
                     System.out.println("Login Gagal! Silahkan Coba Lagi !");
