@@ -7,8 +7,12 @@ public class done {
     static int tanggalMulaiSewa = 0;
 
     // Data Username dan Password Untuk Login
-    static String[] username = {"Faiza", "Paudra", "Yusuf"};
-    static String[] password = {"f123", "p123", "y123"};
+    static String[] username = { "Faiza", "Paudra", "Yusuf" };
+    static String[] password = { "f123", "p123", "y123" };
+
+    // Array untuk menyimpan histori pemesanan
+    static String[] historiPemesanan = new String[1000]; // Anda bisa menyesuaikan ukuran array sesuai kebutuhan
+    static int jumlahPemesanan = 0;
 
     public static void main(String[] args) {
         System.out.println("--------------------------------------------");
@@ -48,7 +52,8 @@ public class done {
                 System.out.println("------------------------------------------");
 
             }
-            // Jika username dan password salah maka login gagal dan terdapat perintah untuk coba lagi
+            // Jika username dan password salah maka login gagal dan terdapat perintah untuk
+            // coba lagi
             else {
                 System.out.println("-------------------------------------");
                 System.out.println("| LOGIN GAGAL! SILAHKAN COBA LAGI ! |");
@@ -88,118 +93,136 @@ public class done {
                 case 3:
                     pengembalianMobil();
                     break;
+                case 4:
+                    tampilkanRiwayatPemesanan();
             }
-        } while (menu != 4);
+        } while (menu != 5);
 
         System.out.println("------------------------------------------------");
         System.out.println("| TERIMA KASIH TELAH MENGGUNAKAN LAYANAN KAMI! |");
         System.out.println("------------------------------------------------");
     }
 
+    static String[][] mobilData = {
+            { "Honda Brio ", "AB 1234 CD", "300000", "Ready Stok" },
+            { "Honda Jazz ", "EF 5678 GH", "600000", "Ready Stok" },
+            { "Toyota Fortuner", "IJ 9101 KL", "800000", "Ready Stok" },
+            { "Isuzu Elf Long ", "MN 1112 OP", "1400000", "Ready Stok" },
+            { "Mitsubishi Pajero", "QR 1314 ST", "750000", "Ready Stok" },
+            { "Mitsubishi X-Pander ", "UV 1516 WX", "700000", "Ready Stok" }
+    };
+
     // Fungsi untuk menampilkan daftar mobil
     static void tampilkanDaftarMobil() {
         System.out.println("----------------");
         System.out.println("| DAFTAR MOBIL |");
-        System.out.println("--------------------------------------------------------------------------------------------------");
-        System.out.println("|  NO   |                MOBIL                |  PLAT NOMOR  |       HARGA        |    STATUS    |");
-        System.out.println("--------------------------------------------------------------------------------------------------");
+        System.out.println(
+                "--------------------------------------------------------------------------------------------------");
+        System.out.println(
+                "|  NO   |                MOBIL                |  PLAT NOMOR  |       HARGA        |    STATUS    |");
+        System.out.println(
+                "--------------------------------------------------------------------------------------------------");
         for (int i = 0; i < mobilData.length; i++) {
             System.out.printf("| %-6d| %-35s | %-12s | Rp. %-14s | %-12s |\n",
                     i + 1, mobilData[i][0], mobilData[i][1], mobilData[i][2], mobilData[i][3]);
         }
-        System.out.println("--------------------------------------------------------------------------------------------------");
+        System.out.println(
+                "--------------------------------------------------------------------------------------------------");
     }
-
-    static String[][] mobilData = {
-            {"Honda Brio ", "AB 1234 CD", "300000", "Ready Stok"},
-            {"Honda Jazz ", "EF 5678 GH", "600000", "Ready Stok"},
-            {"Toyota Fortuner", "IJ 9101 KL", "800000", "Ready Stok"},
-            {"Isuzu Elf Long ", "MN 1112 OP", "1400000", "Ready Stok"},
-            {"Mitsubishi Pajero", "QR 1314 ST", "750000", "Ready Stok"},
-            {"Mitsubishi X-Pander ", "UV 1516 WX", "700000", "Ready Stok"}
-    };
 
     // Fungsi untuk pemesanan mobil
-static void pesanMobil() {
+    static void pesanMobil() {
 
-    System.out.println("--------------------------------");
-    System.out.println("|  MASUKKAN INFORMASI PENYEWA  |");
-    System.out.println("--------------------------------");
+        while (lanjutSewa) {
 
-    System.out.print(" Nama Penyewa : ");
-    String namaPenyewa = scanner.next();
+            System.out.println("--------------------------------");
+            System.out.println("|  MASUKKAN INFORMASI PENYEWA  |");
+            System.out.println("--------------------------------");
 
-    System.out.print(" Nomor Induk Kependudukan (NIK) : ");
-    String NIK = scanner.next();
+            System.out.print(" Nama Penyewa : ");
+            String namaPenyewa = scanner.next();
 
-    while (lanjutSewa) {
+            System.out.print(" Nomor Induk Kependudukan (NIK) : ");
+            String NIK = scanner.next();
 
-        System.out.print(" Masukkan jumlah hari penyewaan: ");
-        int jumlahHari = scanner.nextInt();
+            System.out.println("--------------------------------");
+            System.out.println("|          FORM SEWA           |");
+            System.out.println("--------------------------------");
 
-        System.out.print(" Masukkan tanggal mulai penyewaan (1-31): ");
-        tanggalMulaiSewa = scanner.nextInt();
+            System.out.print(" Masukkan jumlah hari penyewaan: ");
+            int jumlahHari = scanner.nextInt();
 
-        tampilkanDaftarMobil();
+            System.out.print(" Masukkan tanggal mulai penyewaan (1-31): ");
+            tanggalMulaiSewa = scanner.nextInt();
 
-        int pilihanMobil;
-        boolean mobilValid = false;
+            tampilkanDaftarMobil();
 
-        do {
-            System.out.print(" Masukkan nomor mobil yang dipilih (1 - " + mobilData.length + "): ");
-            pilihanMobil = scanner.nextInt();
+            int pilihanMobil;
+            boolean mobilValid = false;
 
-            if (pilihanMobil < 1 || pilihanMobil > mobilData.length) {
-                System.out.println("---------------------------");
-                System.out.println("| NOMOR MOBIL TIDAK VALID |");
-                System.out.println("---------------------------");
-                continue;
-            }
+            do {
+                System.out.print(" Masukkan nomor mobil yang dipilih (1 - " + mobilData.length + "): ");
+                pilihanMobil = scanner.nextInt();
 
-            if (mobilData[pilihanMobil - 1][3].equalsIgnoreCase("Sedang Disewa")) {
-                System.out.println("------------------------------------------------------------------");
-                System.out.println("| MAAF, MOBIL TERSEBUT SEDANG DISEWA. SILAHKAN PILIH MOBIL LAIN. |");
-                System.out.println("------------------------------------------------------------------");
+                if (pilihanMobil < 1 || pilihanMobil > mobilData.length) {
+                    System.out.println("---------------------------");
+                    System.out.println("| NOMOR MOBIL TIDAK VALID |");
+                    System.out.println("---------------------------");
+                    continue;
+                }
 
-            } else {
-                mobilValid = true;
-            }
-        } while (!mobilValid);
+                if (mobilData[pilihanMobil - 1][3].equalsIgnoreCase("Sedang Disewa")) {
+                    System.out.println("------------------------------------------------------------------");
+                    System.out.println("| MAAF, MOBIL TERSEBUT SEDANG DISEWA. SILAHKAN PILIH MOBIL LAIN. |");
+                    System.out.println("------------------------------------------------------------------");
 
-        double hargaSewa = 0;
-        String mobilSewa = mobilData[pilihanMobil - 1][0];
-        hargaSewa = jumlahHari * Double.parseDouble(mobilData[pilihanMobil - 1][2]);
+                } else {
+                    mobilValid = true;
+                }
+            } while (!mobilValid);
 
-        totalBiayaSewa += hargaSewa;
+            double hargaSewa = 0;
+            String mobilSewa = mobilData[pilihanMobil - 1][0];
+            hargaSewa = jumlahHari * Double.parseDouble(mobilData[pilihanMobil - 1][2]);
+            totalBiayaSewa += hargaSewa;
 
-        mobilData[pilihanMobil - 1][3] = "Sedang Disewa";
+            mobilData[pilihanMobil - 1][3] = "Sedang Disewa";
 
-        System.out.print(" Apakah ingin memesan mobil lagi? (y/n): ");
-        String pesanLagi = scanner.next();
-        lanjutSewa = pesanLagi.equalsIgnoreCase("y");
+            // Tampilkan invoice setelah total pesanan mobil
+            System.out.println("--------------------------------------------------");
+            System.out.println("| Total Seluruh Pesanan Mobil: Rp. " + totalBiayaSewa + " |");
+            System.out.println("--------------------------------------------------");
+
+            // Tampilkan invoice setelah total pesanan mobil
+            String invoice = tampilkanInvoice(mobilSewa, hargaSewa, jumlahHari, pilihanMobil, namaPenyewa, NIK);
+
+            // Menyimpan histori pemesanan
+            simpanHistoriPemesanan(invoice);
+
+            System.out.print(" Apakah ingin memesan mobil lagi? (y/n): ");
+            String pesanLagi = scanner.next();
+            lanjutSewa = pesanLagi.equalsIgnoreCase("y");
+        }
     }
 
-    // Tampilkan invoice setelah total pesanan mobil
-    System.out.println("--------------------------------------------------");
-    System.out.println("| Total Seluruh Pesanan Mobil: Rp. " + totalBiayaSewa + " |");
-    System.out.println("--------------------------------------------------");
-}
+    // Fungsi untuk menampilkan invoice dan mengembalikan informasi sebagai string
+    static String tampilkanInvoice(String mobil, double harga, int hari, int pilihanMobil, String nama, String NIK) {
+        StringBuilder invoice = new StringBuilder();
+        invoice.append("----------------------------------------\n");
+        invoice.append("|               INVOICE                |\n");
+        invoice.append("----------------------------------------\n");
+        invoice.append("| Mobil             : ").append(mobil).append("\n");
+        invoice.append("| Harga Sewa Mobil  : Rp. ").append(mobilData[pilihanMobil - 1][2]).append("\n");
+        invoice.append("| Jumlah Hari       : ").append(hari).append("\n");
+        invoice.append("| Total Biaya       : Rp. ").append(totalBiayaSewa).append("\n");
+        invoice.append("| Nama Pelanggan    : ").append(nama).append("\n");
+        invoice.append("| NIK Pelanggan     : ").append(NIK).append("\n");
+        invoice.append("----------------------------------------\n");
 
-    // Fungsi untuk menampilkan invoice
-    static void tampilkanInvoice(String mobilSewa, double hargaSewa, int jumlahHari, int pilihanMobil, String namaPenyewa, String NIK ) {
-        System.out.println("---------------------------------------------------");
-        System.out.println("|                    INVOICE                      |");
-        System.out.println("---------------------------------------------------");
-        System.out.println(" Nama Penyewa                  : " + namaPenyewa);
-        System.out.println(" Nomor Induk Kependudukan (NIK): " + NIK);
-        System.out.println(" Mobil Sewa                    : " + mobilSewa);
-        System.out.println(" Plat Nomor                    : " + mobilData[pilihanMobil - 1][1]);
-        System.out.println(" Tanggal Mulai Penyewaan       : " + tanggalMulaiSewa);
-        System.out.println(" Jumlah Hari                   : " + jumlahHari);
-        System.out.println(" Harga Sewa                    : Rp. " + hargaSewa);
-        System.out.println("---------------------------------------------------");
+        System.out.println(invoice.toString());
+
+        return invoice.toString();
     }
-
 
     // Fungsi untuk pengembalian mobil
     static void pengembalianMobil() {
@@ -226,7 +249,7 @@ static void pesanMobil() {
                 System.out.println("--------------------------------------------");
                 System.out.println("|            PENGEMBALIAN MOBIL            |");
                 System.out.println("--------------------------------------------");
-                System.out.println("|       MOBIL "+ nomorKembali+ " BERHASIL DIKEMBALIKAN!       |");
+                System.out.println("|       MOBIL " + nomorKembali + " BERHASIL DIKEMBALIKAN!       |");
                 System.out.println("|       Denda: Rp. " + denda + "           ");
                 System.out.println("--------------------------------------------");
 
@@ -236,6 +259,23 @@ static void pesanMobil() {
         } else {
             System.out.println("Nomor mobil tidak valid.");
         }
+    }
+
+    // Fungsi untuk menampilkan riwayat pemesanan
+    static void tampilkanRiwayatPemesanan() {
+        System.out.println("----------------------------------------\n");
+        System.out.println("|           RIWAYAT PEMESANAN            |\n");
+        System.out.println("----------------------------------------\n");
+        for (int i = 0; i < jumlahPemesanan; i++) {
+            System.out.println(historiPemesanan[i]);
+        }
+        System.out.println("----------------------------");
+    }
+
+    // Fungsi untuk menyimpan histori pemesanan
+    static void simpanHistoriPemesanan(String histori) {
+        historiPemesanan[jumlahPemesanan] = histori;
+        jumlahPemesanan++;
     }
 
 }
