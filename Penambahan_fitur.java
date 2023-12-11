@@ -12,7 +12,7 @@ public class done {
     static String[] password = { "f123", "p123", "y123" };
 
     // Array untuk menyimpan histori pemesanan
-    static String[] historiPemesanan = new String[1000]; // Anda bisa menyesuaikan ukuran array sesuai kebutuhan
+    static String[] historiPemesanan = new String[1000];
     static int jumlahPemesanan = 0;
 
     public static void main(String[] args) {
