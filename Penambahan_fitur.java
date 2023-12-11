@@ -5,6 +5,7 @@ public class done {
     static boolean lanjutSewa = true;
     static int totalBiayaSewa = 0;
     static int tanggalMulaiSewa = 0;
+    static boolean berhenti= false;
 
     // Data Username dan Password Untuk Login
     static String[] username = { "Faiza", "Paudra", "Yusuf" };
@@ -15,6 +16,7 @@ public class done {
     static int jumlahPemesanan = 0;
 
     public static void main(String[] args) {
+        while(!berhenti){
         System.out.println("--------------------------------------------");
         System.out.println("|                                          |");
         System.out.println("|       PERSEWAAN MOBIL YAPUZA             |");
@@ -22,9 +24,9 @@ public class done {
         System.out.println("--------------------------------------------");
         System.out.println("| SELAMAT DATANG DI PERSEWAAN MOBIL YAPUZA |");
         System.out.println("--------------------------------------------");
-
         login();
         daftarMenu();
+        }
     }
 
     // Fungsi untuk login
@@ -74,7 +76,8 @@ public class done {
             System.out.println("|        2. PEMESANAN              |");
             System.out.println("|        3. PENGEMBALIAN           |");
             System.out.println("|        4. RIWAYAT PEMESANAN      |");
-            System.out.println("|        5. KELUAR                 |");
+            System.out.println("|        5. GANTI ADMIN            |");
+            System.out.println("|        6. KELUAR                 |");
             System.out.println("------------------------------------");
 
             System.out.print("| Pilih Menu : ");
@@ -96,13 +99,14 @@ public class done {
                 case 4:
                     tampilkanRiwayatPemesanan();
             }
-        } while (menu != 5);
-
+        } while (menu < 5 && menu > 1);
+        if(menu == 6){
+        berhenti = true;
         System.out.println("------------------------------------------------");
         System.out.println("| TERIMA KASIH TELAH MENGGUNAKAN LAYANAN KAMI! |");
         System.out.println("------------------------------------------------");
+        }
     }
-
     static String[][] mobilData = {
             { "Honda Brio ", "AB 1234 CD", "300000", "Ready Stok" },
             { "Honda Jazz ", "EF 5678 GH", "600000", "Ready Stok" },
