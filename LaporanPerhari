@@ -1,0 +1,11 @@
+ static void tampilkanLaporanKeuanganPerHari() {
+        System.out.println("----------------------------------------");
+        System.out.println("|      LAPORAN KEUANGAN PER HARI       |");
+        System.out.println("----------------------------------------");
+        for (int i = 1; i < keuanganPerhari.length; i++) {
+            if (keuanganPerhari[i] > 0) {
+                System.out.println("| Tanggal: " + i + " - Total Pendapatan: Rp. " + keuanganPerhari[i] + " |");
+            }
+        }
+        System.out.println("----------------------------------------");
+    }
