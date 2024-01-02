@@ -295,5 +295,50 @@ public class done {
         historiPemesanan[jumlahPemesanan] = histori;
         jumlahPemesanan++;
     }
+// Fungsi untuk update keuangan per hari
+    static void updateKeuanganPerHari(Date tanggal, int totalBiaya) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(tanggal);
+        int perHari = calendar.get(Calendar.DAY_OF_MONTH);
+        keuanganPerhari[perHari] += totalBiaya;
+    }
 
+    // Fungsi untuk update keuangan per bulan
+    static void updateKeuanganPerBulan(Date tanggal, int totalBiaya) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(tanggal);
+        int perBulan = calendar.get(Calendar.MONTH); // Ganti dengan indeks bulan
+        keuanganPerBulan[perBulan] += totalBiaya;
+    }
+
+    // Fungsi untuk menampilkan laporan keuangan per hari
+    static void tampilkanLaporanKeuanganPerHari() {
+        System.out.println("----------------------------------------");
+        System.out.println("|      LAPORAN KEUANGAN PER HARI       |");
+        System.out.println("----------------------------------------");
+        for (int i = 1; i < keuanganPerhari.length; i++) {
+            if (keuanganPerhari[i] > 0) {
+                System.out.println("| Tanggal: " + i + " - Total Pendapatan: Rp. " + keuanganPerhari[i] + " |");
+            }
+        }
+        System.out.println("----------------------------------------");
+    }
+
+    // Fungsi untuk menampilkan laporan keuangan per bulan
+    static void tampilkanLaporanKeuanganPerBulan() {
+        System.out.println("----------------------------------------");
+        System.out.println("|      LAPORAN KEUANGAN PER BULAN      |");
+        System.out.println("----------------------------------------");
+        String[] namaBulan = { "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September",
+                "Oktober", "November", "Desember" };
+
+        // Perbarui loop agar sesuai dengan panjang array keuanganPerBulan
+        for (int i = 0; i < keuanganPerBulan.length; i++) {
+            if (keuanganPerBulan[i] > 0) {
+                System.out
+                        .println("| Bulan " + namaBulan[i] + " - Total Pendapatan: Rp. " + keuanganPerBulan[i] + " |");
+            }
+        }
+        System.out.println("----------------------------------------");
+    }
 }
