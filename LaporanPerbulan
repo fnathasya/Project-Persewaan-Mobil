@@ -1,0 +1,6 @@
+ static void updateKeuanganPerBulan(Date tanggal, int totalBiaya) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(tanggal);
+        int perBulan = calendar.get(Calendar.MONTH) + 1;
+        keuanganPerBulan[perBulan] += totalBiaya;
+    }
