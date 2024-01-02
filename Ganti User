@@ -1,0 +1,13 @@
+static void gantiUser() {
+        System.out.println("------------------------------------");
+        System.out.println("|          GANTI USER              |");
+        System.out.println("------------------------------------");
+
+        loggedInUser = null;
+        loggedInUserIndex = -1;
+
+        System.out.println("| Anda telah berhasil log out.    |");
+        System.out.println("------------------------------------");
+
+        login();
+    }
