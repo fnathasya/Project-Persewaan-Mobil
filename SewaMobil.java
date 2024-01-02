@@ -7,18 +7,26 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class done {
-    static Scanner scanner = new Scanner(System.in);
+   static Scanner scanner = new Scanner(System.in);
+    static int loggedInUserIndex = -1;
     static boolean lanjutSewa = true;
+    static Date tanggalMulai;
     static int totalBiayaSewa = 0;
-    static int tanggalMulaiSewa = 0;
-    static boolean berhenti= false;
+    static boolean berhenti = false;
+    static SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+    // Array untuk meyimpan data laporan keuangan per hari dan per bulan
+    static int[] keuanganPerhari = new int[100];
+    static int[] keuanganPerBulan = new int[100];
 
     // Data Username dan Password Untuk Login
     static String[] username = { "Faiza", "Paudra", "Yusuf" };
     static String[] password = { "f123", "p123", "y123" };
+    static String[] roles = { "admin", "kasir", "manager" };
+    static String loggedInUser = null;
 
     // Array untuk menyimpan histori pemesanan
-    static String[] historiPemesanan = new String[1000];
+    static String[] historiPemesanan = new String[100];
     static int jumlahPemesanan = 0;
 
     public static void main(String[] args) {
