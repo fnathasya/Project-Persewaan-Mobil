@@ -341,4 +341,197 @@ public class done {
         }
         System.out.println("----------------------------------------");
     }
+   // Fungsi untuk pemesanan mobil
+    static void pesanMobil() {
+        lanjutSewa = true;
+
+        System.out.println("--------------------------------");
+        System.out.println("|  MASUKKAN INFORMASI PENYEWA  |");
+        System.out.println("--------------------------------");
+
+        System.out.print(" Nama Penyewa : ");
+        String namaPenyewa = scanner.next();
+
+        System.out.print(" Nomor Induk Kependudukan (NIK) : ");
+        String NIK = scanner.next();
+
+        while (lanjutSewa) {
+           
+            System.out.println("--------------------------------");
+            System.out.println("|          FORM SEWA           |");
+            System.out.println("--------------------------------");
+
+            System.out.print(" Masukkan jumlah hari penyewaan: ");
+            int jumlahHari = scanner.nextInt();
+
+            System.out.print(" Masukkan tanggal mulai penyewaan (dd/MM/yyyy): ");
+            String inputTanggalMulai = scanner.next();
+
+            try {
+                tanggalMulai = dateFormat.parse(inputTanggalMulai);
+
+                // Update keuangan per hari
+                updateKeuanganPerHari(tanggalMulai, totalBiayaSewa);
+                // Update keuangan per bulan
+                updateKeuanganPerBulan(tanggalMulai, totalBiayaSewa);
+                tampilkanDaftarMobil();
+
+                int pilihanMobil;
+                boolean mobilValid = false;
+
+                do {
+                    System.out.print(" Masukkan nomor mobil yang dipilih (1 - " + mobilData.length + "): ");
+                    pilihanMobil = scanner.nextInt();
+
+                    if (pilihanMobil < 1 || pilihanMobil > mobilData.length) {
+                        System.out.println("---------------------------");
+                        System.out.println("| NOMOR MOBIL TIDAK VALID |");
+                        System.out.println("---------------------------");
+                        continue;
+                    }
+
+                    if (mobilData[pilihanMobil - 1][3].equalsIgnoreCase("Sedang Disewa")) {
+                        System.out.println("------------------------------------------------------------------");
+                        System.out.println("| MAAF, MOBIL TERSEBUT SEDANG DISEWA. SILAHKAN PILIH MOBIL LAIN. |");
+                        System.out.println("------------------------------------------------------------------");
+
+                    } else {
+                        mobilValid = true;
+                    }
+                } while (!mobilValid);
+
+                double hargaSewa = 0;
+                String mobilSewa = mobilData[pilihanMobil - 1][0];
+                hargaSewa = jumlahHari * Double.parseDouble(mobilData[pilihanMobil - 1][2]);
+                totalBiayaSewa += hargaSewa;
+
+                mobilData[pilihanMobil - 1][3] = "Sedang Disewa";
+
+                // Tampilkan invoice setelah total pesanan mobil
+                String invoice = tampilkanInvoice(mobilSewa, hargaSewa, jumlahHari, pilihanMobil, namaPenyewa, NIK,
+                        tanggalMulai);
+
+                // Menyimpan histori pemesanan
+                simpanHistoriPemesanan(invoice);
+
+                // menampilkan metode pembayaran
+                tampilkanMetodePembayaran();
+
+            } catch (ParseException e) {
+                System.out.println("Format tanggal tidak valid.");
+            }
+
+            System.out.print(" Apakah ingin memesan mobil lagi? (y/n): ");
+            String pesanLagi = scanner.next();
+            lanjutSewa = pesanLagi.equalsIgnoreCase("y");
+        }
+
+    }
+
+    // Fungsi untuk menampilkan pilihan metode pembayaran
+    static void tampilkanMetodePembayaran() {
+        System.out.println("----------------------------------------");
+        System.out.println("|        METODE PEMBAYARAN             |");
+        System.out.println("----------------------------------------");
+        System.out.println("|  Pilih Metode Pembayaran:           |");
+        System.out.println("|  1. Tunai                            |");
+        System.out.println("|  2. QRIS                             |");
+        System.out.println("|  3. Transfer                         |");
+        System.out.println("----------------------------------------");
+        System.out.print("|  Masukkan pilihan: ");
+        int metodePembayaran = scanner.nextInt();
+
+        // proses pembayaran
+        switch (metodePembayaran) {
+            case 1:
+                System.out.println("--------------------------------------");
+                System.out.println("| Pembayaran berhasil. Terima kasih! |");
+                System.out.println("--------------------------------------");
+                break;
+            case 2:
+                System.out.println("-----------------------------------------------------");
+                System.out.println("| Silakan scan QRIS untuk pembayaran. Terima kasih! |");
+                System.out.println("-----------------------------------------------------");
+                break;
+            case 3:
+                System.out.println("---------------------------");
+                System.out.println("| TRANSFER BCA 6212252908 |");
+                System.out.println("--------------------------------------------------------------");
+                System.out.println("| Silakan transfer ke nomor rekening tersebut. Terima kasih! |");
+                System.out.println("--------------------------------------------------------------");
+                break;
+            default:
+                System.out.println("---------------------------------------------------------");
+                System.out.println("| Metode pembayaran tidak valid. Pembayaran dibatalkan. |");
+                System.out.println("---------------------------------------------------------");
+
+        }
+    }
+
+    // Fungsi untuk menampilkan invoice dan mengembalikan informasi sebagai string
+    static String tampilkanInvoice(String mobil, double harga, int hari, int pilihanMobil, String nama, String NIK,
+            Date tanggalMulai) {
+        StringBuilder invoice = new StringBuilder();
+        invoice.append("----------------------------------------\n");
+        invoice.append("|               INVOICE                |\n");
+        invoice.append("----------------------------------------\n");
+        invoice.append("| Nama Pelanggan    : ").append(nama).append("\n");
+        invoice.append("| NIK Pelanggan     : ").append(NIK).append("\n");
+        invoice.append("| Mobil             : ").append(mobil).append("\n");
+        invoice.append("| Harga Sewa Mobil  : Rp. ").append(mobilData[pilihanMobil - 1][2]).append("\n");
+        invoice.append("| Tanggal Mulai     : ").append(tanggalMulai).append("\n");
+        invoice.append("| Jumlah Hari       : ").append(hari).append("\n");
+        invoice.append("| Total Biaya       : Rp. ").append(totalBiayaSewa).append("\n");
+        invoice.append("----------------------------------------\n");
+
+        System.out.println(invoice.toString());
+
+        return invoice.toString();
+    }
+
+    // Fungsi untuk pengembalian mobil
+    static void pengembalianMobil() {
+        System.out.println("--------------------------------------------");
+        System.out.println("|          FORM PENGEMBALIAN MOBIL         |");
+        System.out.println("--------------------------------------------");
+
+        System.out.print(" Masukkan nomor mobil yang dikembalikan: ");
+        int nomorKembali = scanner.nextInt();
+
+        if (nomorKembali >= 1 && nomorKembali <= mobilData.length) {
+            if (mobilData[nomorKembali - 1][3].equalsIgnoreCase("Sedang Disewa")) {
+                System.out.print(" Masukkan tanggal pengembalian (dd/MM/yyyy): ");
+                String inputTanggalKembali = scanner.next();
+
+                try {
+                    Date tanggalKembali = dateFormat.parse(inputTanggalKembali);
+
+                    long selisihHari = TimeUnit.DAYS.convert(tanggalKembali.getTime() - tanggalMulai.getTime(),
+                            TimeUnit.MILLISECONDS);
+
+                    int batasHariSewa = 1;
+                    int denda = 0;
+                    if (selisihHari > batasHariSewa) {
+                        denda = (int) (selisihHari - batasHariSewa) * 100000;
+                    }
+
+                    mobilData[nomorKembali - 1][3] = "Ready Stok";
+
+                    System.out.println("--------------------------------------------");
+                    System.out.println("|            PENGEMBALIAN MOBIL            |");
+                    System.out.println("--------------------------------------------");
+                    System.out.println("|       MOBIL " + nomorKembali + " BERHASIL DIKEMBALIKAN!       |");
+                    System.out.println("|       Denda: Rp. " + denda + "           ");
+                    System.out.println("--------------------------------------------");
+
+                } catch (ParseException e) {
+                    System.out.println("Format tanggal tidak valid.");
+                }
+            } else {
+                System.out.println("Mobil dengan nomor tersebut belum disewa.");
+            }
+        } else {
+            System.out.println("Nomor mobil tidak valid.");
+        }
+    }
 }
