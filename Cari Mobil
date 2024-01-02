@@ -1,0 +1,27 @@
+ // Fungsi untuk mencari mobil berdasarkan nama
+    static void cariMobil() {
+        System.out.print("Masukkan nama mobil yang dicari: ");
+        String keyword = scanner.nextLine().toLowerCase();
+
+        System.out.println("---------------------");
+        System.out.println("| HASIL PENCARIAN    |");
+        System.out.println(
+                "--------------------------------------------------------------------------------------------------");
+        System.out.println(
+                "|  NO   |                MOBIL                |  PLAT NOMOR  |       HARGA        |    STATUS    |");
+        System.out.println(
+                "--------------------------------------------------------------------------------------------------");
+        int foundCount = 0;
+        for (int i = 0; i < mobilData.length; i++) {
+            if (mobilData[i][0].toLowerCase().contains(keyword)) {
+                foundCount++;
+                System.out.printf("| %-6d| %-35s | %-12s | Rp. %-14s | %-12s |\n",
+                        i + 1, mobilData[i][0], mobilData[i][1], mobilData[i][2], mobilData[i][3]);
+            }
+        }
+
+        if (foundCount == 0) {
+            System.out.println("| Mobil tidak ditemukan |");
+        }
+        System.out.println("---------------------");
+    }
