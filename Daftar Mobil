@@ -1,0 +1,26 @@
+ static String[][] mobilData = {
+            { "Honda Brio ", "AB 1234 CD", "300000", "Ready Stok" },
+            { "Honda Jazz ", "EF 5678 GH", "600000", "Ready Stok" },
+            { "Toyota Fortuner", "IJ 9101 KL", "800000", "Ready Stok" },
+            { "Isuzu Elf Long ", "MN 1112 OP", "1400000", "Ready Stok" },
+            { "Mitsubishi Pajero", "QR 1314 ST", "750000", "Ready Stok" },
+            { "Mitsubishi X-Pander ", "UV 1516 WX", "700000", "Ready Stok" }
+    };
+
+    // Fungsi untuk menampilkan daftar mobil
+    static void tampilkanDaftarMobil() {
+        System.out.println("----------------");
+        System.out.println("| DAFTAR MOBIL |");
+        System.out.println(
+                "--------------------------------------------------------------------------------------------------");
+        System.out.println(
+                "|  NO   |                MOBIL                |  PLAT NOMOR  |       HARGA        |    STATUS    |");
+        System.out.println(
+                "--------------------------------------------------------------------------------------------------");
+        for (int i = 0; i < mobilData.length; i++) {
+            System.out.printf("| %-6d| %-35s | %-12s | Rp. %-14s | %-12s |\n",
+                    i + 1, mobilData[i][0], mobilData[i][1], mobilData[i][2], mobilData[i][3]);
+        }
+        System.out.println(
+                "--------------------------------------------------------------------------------------------------");
+    }
