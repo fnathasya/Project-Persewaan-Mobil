@@ -1,0 +1,10 @@
+ // Fungsi untuk menampilkan riwayat pemesanan
+    static void tampilkanRiwayatPemesanan() {
+        System.out.println("----------------------------------------\n");
+        System.out.println("|           RIWAYAT PEMESANAN            |\n");
+        System.out.println("----------------------------------------\n");
+        for (int i = 0; i < jumlahPemesanan; i++) {
+            System.out.println(historiPemesanan[i]);
+        }
+        System.out.println("----------------------------");
+    }
